@@ -1,30 +1,29 @@
 const allBoxes = document.querySelectorAll('.test-box');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 
-let currentIndex = 0;
-const boxesPerPage = 5;
+let visibleCount = 5; // Pehle 5 dikhane hain
 
-// Sab hide karo pehle
-allBoxes.forEach(box => box.classList.add('hidden'));
+function showInitialBoxes() {
+  allBoxes.forEach((box, index) => {
+    if (index < visibleCount) {
+      box.style.display = 'block'; // First 5 visible
+    }
+  });
+}
 
-// Function to show next 5
-function showNextBoxes() {
-  let endIndex = currentIndex + boxesPerPage;
+function loadMoreBoxes() {
+  let newVisibleCount = visibleCount + 5;
+  allBoxes.forEach((box, index) => {
+    if (index < newVisibleCount) {
+      box.style.display = 'block';
+    }
+  });
+  visibleCount = newVisibleCount;
 
-  for (let i = currentIndex; i < endIndex && i < allBoxes.length; i++) {
-    allBoxes[i].classList.remove('hidden');
-  }
-
-  currentIndex += boxesPerPage;
-
-  // Agar saare show ho gaye toh button hide karo
-  if (currentIndex >= allBoxes.length) {
+  if (visibleCount >= allBoxes.length) {
     loadMoreBtn.style.display = 'none';
   }
 }
 
-// Page load hone par pehle 5 dikhaye
-showNextBoxes();
-
-// Button click hone par next 5 dikhaye
-loadMoreBtn.addEventListener('click', showNextBoxes);
+showInitialBoxes();
+loadMoreBtn.addEventListener('click', loadMoreBoxes);
