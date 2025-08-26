@@ -1,24 +1,30 @@
+const allBoxes = document.querySelectorAll('.test-box');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-const hiddenBoxes = document.querySelectorAll('.test-box.hidden-box');
-let currentlyShown = 0;
-const boxesPerClick = 5;
 
-function loadBoxes() {
-  // Loop chalakar agle 5 hidden boxes ko show karein
-  for (let i = 0; i < boxesPerClick; i++) {
-    // Check karein ki hidden boxes bache hain ya nahi
-    if (currentlyShown < hiddenBoxes.length) {
-      // hidden-box class hatayen
-      hiddenBoxes[currentlyShown].classList.remove('hidden-box');
-      currentlyShown++;
-    }
+let currentIndex = 0;
+const boxesPerPage = 5;
+
+// Sab hide karo pehle
+allBoxes.forEach(box => box.classList.add('hidden'));
+
+// Function to show next 5
+function showNextBoxes() {
+  let endIndex = currentIndex + boxesPerPage;
+
+  for (let i = currentIndex; i < endIndex && i < allBoxes.length; i++) {
+    allBoxes[i].classList.remove('hidden');
   }
 
-  // Jab sabhi boxes load ho jayein, toh button ko hide kar dein
-  if (currentlyShown >= hiddenBoxes.length) {
+  currentIndex += boxesPerPage;
+
+  // Agar saare show ho gaye toh button hide karo
+  if (currentIndex >= allBoxes.length) {
     loadMoreBtn.style.display = 'none';
   }
 }
 
-// Button click hone par loadBoxes function chalayen
-loadMoreBtn.addEventListener('click', loadBoxes);
+// Page load hone par pehle 5 dikhaye
+showNextBoxes();
+
+// Button click hone par next 5 dikhaye
+loadMoreBtn.addEventListener('click', showNextBoxes);
