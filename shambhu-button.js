@@ -6,13 +6,13 @@ let visibleCount = 25; // Pehle 25 dikhane hain
 function showInitialBoxes() {
   allBoxes.forEach((box, index) => {
     if (index < visibleCount) {
-      box.style.display = 'block'; // First 5 visible
+      box.style.display = 'block'; // First 25 visible
     }
   });
 }
 
 function loadMoreBoxes() {
-  let newVisibleCount = visibleCount + 5;
+  let newVisibleCount = visibleCount + 25;
   allBoxes.forEach((box, index) => {
     if (index < newVisibleCount) {
       box.style.display = 'block';
