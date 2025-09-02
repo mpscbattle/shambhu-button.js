@@ -1,7 +1,7 @@
 const allBoxes = document.querySelectorAll('.test-box');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 
-let visibleCount = 5; // Pehle 5 dikhane hain
+let visibleCount = 25; // Pehle 25 dikhane hain
 
 function showInitialBoxes() {
   allBoxes.forEach((box, index) => {
